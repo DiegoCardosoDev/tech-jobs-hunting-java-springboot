@@ -1,5 +1,6 @@
 package com.diego.techjobs.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ import java.util.List;
 @Entity
 public class Jobs implements Serializable {
 
-    private final Long seralVersionUID = 1L;
+    @Transient
+    private final Long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +30,7 @@ public class Jobs implements Serializable {
     private String description;
 
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy, HH:mm:ss")
     private LocalDateTime date;
 
     private Double salary;
