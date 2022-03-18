@@ -96,6 +96,18 @@ public class JobsController {
 
     }
 
+    /*DELETAR CANDIDATO */
+    @DeleteMapping("/delete-candidato")
+    public String deletarCandidato(String rg){
+        Candidate candidate = candidateRepository.findByRg(rg);
+        Jobs jobs = candidate.getJobs();
+        String code = " " + jobs.getCode();
+        candidateRepository.delete(candidate);
+        return "redirect:/" + code;
+
+    }
+
+
 
 
 
