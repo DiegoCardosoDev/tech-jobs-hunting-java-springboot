@@ -2730,6 +2730,14 @@ a.btn.disabled, fieldset:disabled a.btn {
 	border-color: #ffc107;
 }
 
+.fundo{
+	background-image: url("https://vtex.com/wp-content/uploads/2021/02/techjob.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+
 .btn-outline-warning:hover {
 	color: #212529;
 	background-color: #ffc107;
@@ -4004,6 +4012,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	flex-grow: 1;
 	-ms-flex-align: center;
 	align-items: center;
+	color: #005cbf;
 }
 
 .navbar-toggler {
