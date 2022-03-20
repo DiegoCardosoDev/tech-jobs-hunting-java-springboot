@@ -26,7 +26,7 @@ public class Candidate {
 	private String email;
 	
 	@ManyToOne
-	private Jobs jobs;
+	private JobsOportunity jobsOportunity;
 
 	public String getRg() {
 		return rg;
@@ -52,12 +52,12 @@ public class Candidate {
 		this.email = email;
 	}
 
-	public Jobs getVaga() {
-		return jobs;
+	public JobsOportunity getVaga() {
+		return jobsOportunity;
 	}
 
-	public void setVaga(Jobs jobs) {
-		this.jobs = jobs;
+	public void setVaga(JobsOportunity jobsOportunity) {
+		this.jobsOportunity = jobsOportunity;
 	}
 	
 	

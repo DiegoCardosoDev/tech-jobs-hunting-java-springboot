@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Jobs implements Serializable {
+public class JobsOportunity implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Jobs implements Serializable {
 	@NotEmpty
 	private String salary;
 	
-	@OneToMany(mappedBy = "jobs", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "jobsOportunity", cascade = CascadeType.REMOVE)
 	private List<Candidate> candidates;
 
 	public long getCode() {
