@@ -15,18 +15,32 @@ public class Candidate {
 	@GeneratedValue
 	private long id;
 	
-	@Column(unique = true)
+	@Column(unique = true, length = 9 )
 	private String rg;
 	
 	@NotEmpty
+	@Column(length = 130)
 	private String nameCandidate;
 	
 	@NotEmpty
+	@Column(length = 100)
 	@Email
 	private String email;
+
+	@NotEmpty
+	@Column(length = 50)
+	private String cargo;
 	
 	@ManyToOne
 	private JobsOportunity jobsOportunity;
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
 
 	public String getRg() {
 		return rg;

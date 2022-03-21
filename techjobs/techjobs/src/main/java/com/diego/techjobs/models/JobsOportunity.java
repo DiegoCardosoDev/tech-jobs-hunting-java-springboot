@@ -1,91 +1,101 @@
 package com.diego.techjobs.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class JobsOportunity implements Serializable {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long code;
-	
-	@NotEmpty
-	private String name;
-	
-	@NotEmpty
-	private String description;
-	
-	@NotEmpty
-	private String date;
-	
-	@NotEmpty
-	private String salary;
-	
-	@OneToMany(mappedBy = "jobsOportunity", cascade = CascadeType.REMOVE)
-	private List<Candidate> candidates;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	public long getCode() {
-		return code;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long code;
 
-	public void setCode(long code) {
-		this.code = code;
-	}
+    @NotEmpty
+    @Column(length = 130)
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @NotEmpty
+    @Column(length = 255)
+    private String description;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @NotEmpty
+    private String date;
 
-	public String getDescription() {
-		return description;
-	}
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dateCreate;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @NotEmpty
+    private String salary;
 
-	public String getDate() {
-		return date;
-	}
+    @OneToMany(mappedBy = "jobsOportunity", cascade = CascadeType.REMOVE)
+    private List<Candidate> candidates;
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public long getCode() {
+        return code;
+    }
 
-	public String getSalary() {
-		return salary;
-	}
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
 
-	public void setSalary(String salary) {
-		this.salary = salary;
-	}
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
+    }
 
-	public List<Candidate> getCandidatos() {
-		return candidates;
-	}
+    public void setCode(long code) {
+        this.code = code;
+    }
 
-	public void setCandidatos(List<Candidate> candidates) {
-		this.candidates = candidates;
-	}
-	
-	
-	
-	
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public List<Candidate> getCandidatos() {
+        return candidates;
+    }
+
+    public void setCandidatos(List<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
+
 }

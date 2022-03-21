@@ -63,10 +63,11 @@
 	<table class="table table-hover table-responsive w-auto table-striped">
 		<thead>
 		<tr>
-			<th scope="col">Nome da jobsOportunity:</th>
+			<th scope="col">Nome da Vaga:</th>
 			<th scope="col">Descrição:</th>
 			<th scope="col">Salário:</th>
 			<th scope="col">Expira:</th>
+			<th scope="col">Criada em:</th>
 			<th scope="col"></th>
 			<th scope="col">Ações:</th>
 			<th scope="col"></th>
@@ -81,6 +82,7 @@
 			<td><span th:text="${jobsOportunity.description}"></span></td>
 			<td>R$ <span th:text="${jobsOportunity.salary}"></span></td>
 			<td><span th:text="${jobsOportunity.date}"></span></td>
+			<td><span th:text="${jobsOportunity.dateCreate}"></span></td>
 			<td><a th:href="${(#mvc.url('JC#deletarVaga').arg(0, jobsOportunity.code)).build()}"><button type="button" class="btn btn-danger">Excluir</button></a></td>
 			<td><a th:href="${(#mvc.url('JC#editarVaga').arg(0, jobsOportunity.code)).build()}"><button type="button" class="btn btn-primary">Editar</button></a></td>
 			<td><a th:href="${(#mvc.url('JC#detalhesVaga').arg(0, jobsOportunity.code)).build()}"><button type="button" class="btn btn-success">Adicionar candidato</button></a></td>
@@ -90,13 +92,16 @@
 	</table>
 
 
+	<!--FOOTER-->
 	<div class="footer-copyright fixed-bottom bg-primary text-center py-3">
-			<span class="text-light align-middle"> TECH JOBS
-				By Diego cardoso ©
+			<span class="text-light align-middle"> TECH JOBS - By Diego cardoso ©
 				<a href="https://github.com/DiegoCardosoDev">
-			<img src="https://img.icons8.com/material-outlined/48/000000/github.png"/></a>
+			<img src="https://img.icons8.com/material-sharp/24/000000/github.png"/></a>
+				<a href="https://www.linkedin.com/in/diegocardosonogueira/">
+			<img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/24/000000/external-linkedin-in-logo-used-for-professional-networking-logo-filled-tal-revivo.png"/></a>
 			</span>
 	</div>
+	<!--FIM DO FOOTER-->
 
 
 	<!--JavaScript bootstrap-->

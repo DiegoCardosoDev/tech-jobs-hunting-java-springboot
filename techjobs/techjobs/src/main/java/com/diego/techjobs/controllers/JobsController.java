@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.diego.techjobs.repository.CandidateRepository;
 import com.diego.techjobs.repository.JobsRepository;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Controller
 public class JobsController {
@@ -35,7 +37,7 @@ public class JobsController {
 
 	@RequestMapping(value = "/cadastrarVaga", method = RequestMethod.POST)
 	public String form(@Valid JobsOportunity jobsOportunity, BindingResult result, RedirectAttributes attributes) {
-
+		jobsOportunity.setDateCreate(LocalDateTime.now());
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos...");
 			log.info("erro ao cadastrar vaga");
