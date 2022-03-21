@@ -125,7 +125,7 @@ public class JobsController {
 	public ModelAndView editarVaga(long code) {
 		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
 		ModelAndView mv = new ModelAndView("vaga/update-vaga");
-		mv.addObject("vaga", jobsOportunity);
+		mv.addObject("jobsOportunity", jobsOportunity);
 		return mv;
 	}
 
