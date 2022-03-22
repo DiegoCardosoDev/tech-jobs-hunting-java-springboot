@@ -60,7 +60,7 @@ public class JobsController {
 	}
 
 	//
-	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
+	@RequestMapping(value = "vaga/{code}", method = RequestMethod.GET)
 	public ModelAndView detalhesVaga(@PathVariable("code") long code) {
 		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
 		ModelAndView mv = new ModelAndView("vaga/detalhesVaga");
@@ -84,20 +84,20 @@ public class JobsController {
 	}
 
 	// ADICIONAR CANDIDATO
-	@RequestMapping(value = "/{code}", method = RequestMethod.POST)
+	@RequestMapping(value = "vaga/{code}", method = RequestMethod.POST)
 	public String detalhesVagaPost(@PathVariable("code") long code, @Valid Candidate candidate,
 			BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
-			return "redirect:/{code}";
+			return "redirect:vaga/{code}";
 		}
 
 		// rg duplicado
 		if (candidateRepository.findByRg(candidate.getRg()) != null) {
 			attributes.addFlashAttribute("mensagem_erro", "RG duplicado");
 			log.info("rg duplicado");
-			return "redirect:/{code}";
+			return "redirect:vaga/{code}";
 		}
 
 		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
@@ -105,7 +105,7 @@ public class JobsController {
 		candidateRepository.save(candidate);
 		attributes.addFlashAttribute("mensagem", "Candidato adionado com sucesso!");
 		log.info("adicionando candidato");
-		return "redirect:/{code}";
+		return "redirect:vaga/{code}";
 	}
 
 	// DELETA CANDIDATO pelo RG
