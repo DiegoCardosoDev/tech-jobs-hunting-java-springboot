@@ -3,7 +3,8 @@ package com.diego.techjobs.controllers;
 import javax.validation.Valid;
 
 import com.diego.techjobs.models.Candidate;
-import com.diego.techjobs.models.Jobs;
+import com.diego.techjobs.models.JobsOportunity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,8 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.diego.techjobs.repository.CandidateRepository;
 import com.diego.techjobs.repository.JobsRepository;
 
+import java.time.LocalDateTime;
+
+@Slf4j
 @Controller
-public class VagaController {
+public class JobsController {
 
 	@Autowired
 	private JobsRepository jobsRepository;
@@ -32,37 +36,39 @@ public class VagaController {
 	}
 
 	@RequestMapping(value = "/cadastrarVaga", method = RequestMethod.POST)
-	public String form(@Valid Jobs jobs, BindingResult result, RedirectAttributes attributes) {
-
+	public String form(@Valid JobsOportunity jobsOportunity, BindingResult result, RedirectAttributes attributes) {
+		jobsOportunity.setDateCreate(LocalDateTime.now());
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos...");
+			log.info("erro ao cadastrar vaga");
 			return "redirect:/cadastrarVaga";
 		}
 
-		jobsRepository.save(jobs);
+		jobsRepository.save(jobsOportunity);
+		log.info("cadastrando vaga");
 		attributes.addFlashAttribute("mensagem", "Vaga cadastrada com sucesso!");
 		return "redirect:/cadastrarVaga";
 	}
 
-	// LISTA VAGAS
-
+	//listvagas
 	@RequestMapping("/vagas")
 	public ModelAndView listaVagas() {
 		ModelAndView mv = new ModelAndView("vaga/listaVaga");
-		Iterable<Jobs> vagas = jobsRepository.findAll();
+		Iterable<JobsOportunity> vagas = jobsRepository.findAll();
 		mv.addObject("vagas", vagas);
 		return mv;
 	}
 
 	//
-	@RequestMapping(value = "/{code}", method = RequestMethod.GET)
+	@RequestMapping(value = "vaga/{code}", method = RequestMethod.GET)
 	public ModelAndView detalhesVaga(@PathVariable("code") long code) {
-		Jobs jobs = jobsRepository.findByCode(code);
+		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
 		ModelAndView mv = new ModelAndView("vaga/detalhesVaga");
-		mv.addObject("vaga", jobs);
+		mv.addObject("jobsOportunity", jobsOportunity);
+		log.info("detalhes da vaga");
 
-		Iterable<Candidate> canditados = candidateRepository.findByJobs(jobs);
-		mv.addObject("candidatos", canditados);
+		Iterable<Candidate> canditades = candidateRepository.findByjobsOportunity(jobsOportunity);
+		mv.addObject("candidates", canditades);
 
 		return mv;
 
@@ -71,40 +77,44 @@ public class VagaController {
 	// DELETA VAGA
 	@RequestMapping("/deletarVaga")
 	public String deletarVaga(long code) {
-		Jobs jobs = jobsRepository.findByCode(code);
-		jobsRepository.delete(jobs);
+		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
+		jobsRepository.delete(jobsOportunity);
+		log.info("deletando vaga");
 		return "redirect:/vagas";
 	}
 
 	// ADICIONAR CANDIDATO
-	@RequestMapping(value = "/{code}", method = RequestMethod.POST)
+	@RequestMapping(value = "vaga/{code}", method = RequestMethod.POST)
 	public String detalhesVagaPost(@PathVariable("code") long code, @Valid Candidate candidate,
 			BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
-			return "redirect:/{code}";
+			return "redirect:vaga/{code}";
 		}
 
 		// rg duplicado
 		if (candidateRepository.findByRg(candidate.getRg()) != null) {
 			attributes.addFlashAttribute("mensagem_erro", "RG duplicado");
-			return "redirect:/{code}";
+			log.info("rg duplicado");
+			return "redirect:vaga/{code}";
 		}
 
-		Jobs jobs = jobsRepository.findByCode(code);
-		candidate.setVaga(jobs);
+		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
+		candidate.setVaga(jobsOportunity);
 		candidateRepository.save(candidate);
 		attributes.addFlashAttribute("mensagem", "Candidato adionado com sucesso!");
-		return "redirect:/{code}";
+		log.info("adicionando candidato");
+		return "redirect:vaga/{code}";
+
 	}
 
 	// DELETA CANDIDATO pelo RG
 	@RequestMapping("/deletarCandidato")
 	public String deletarCandidato(String rg) {
 		Candidate candidate = candidateRepository.findByRg(rg);
-		Jobs jobs = candidate.getVaga();
-		String code = "" + jobs.getCode();
+		JobsOportunity jobsOportunity = candidate.getVaga();
+		String code = "" + jobsOportunity.getCode();
 
 		candidateRepository.delete(candidate);
 
@@ -116,19 +126,19 @@ public class VagaController {
 	// formulário edição de vaga
 	@RequestMapping(value = "/editar-vaga", method = RequestMethod.GET)
 	public ModelAndView editarVaga(long code) {
-		Jobs jobs = jobsRepository.findByCode(code);
+		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
 		ModelAndView mv = new ModelAndView("vaga/update-vaga");
-		mv.addObject("vaga", jobs);
+		mv.addObject("jobsOportunity", jobsOportunity);
 		return mv;
 	}
 
 	// UPDATE vaga
 	@RequestMapping(value = "/editar-vaga", method = RequestMethod.POST)
-	public String updateVaga(@Valid Jobs jobs, BindingResult result, RedirectAttributes attributes) {
-		jobsRepository.save(jobs);
+	public String updateVaga(@Valid JobsOportunity jobsOportunity, BindingResult result, RedirectAttributes attributes) {
+		jobsRepository.save(jobsOportunity);
 		attributes.addFlashAttribute("success", "Vaga alterada com sucesso!");
 
-		long codeLong = jobs.getCode();
+		long codeLong = jobsOportunity.getCode();
 		String code = "" + codeLong;
 		return "redirect:/" + code;
 	}
