@@ -38,10 +38,15 @@ public class SearchController {
         String mensagem = "Resultados da busca por " + buscar;
         log.info("resultado da busca" + buscar);
 
-        if (name.equals("titlejobs")){
+        if (name.equals("titlejobs")) {
             mv.addObject("vagas", jobsRepository.findByNamesJobsOportunity(buscar));
+
+        }else if (name.equals("namecandidates")){
+            mv.addObject("candidates",candidateRepository.findByNamesCandidates(buscar));
         }else {
             mv.addObject("vagas", jobsRepository.findByNamesJobsOportunity(buscar));
+            mv.addObject("candidates",candidateRepository.findByNamesCandidates(buscar));
+
         }
 
         mv.addObject("mensagem", mensagem);

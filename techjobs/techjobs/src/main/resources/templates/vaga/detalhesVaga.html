@@ -79,7 +79,7 @@
 
 			<br> <br>
 
-			<h2>Cadastrar candidate:</h2>
+			<h2>Cadastrar candidato:</h2>
 
 			<th:block th:include="mensagemValidacao"></th:block>
 			
@@ -126,6 +126,7 @@
 
 		<br> <br>
 
+
 		<h2>Inscritos:</h2>
 
 		<br>
@@ -149,12 +150,13 @@
 					<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('JC#deletarCandidato').arg(0, candidate.rg)).build()}"><button type="button"
 								class="btn btn-danger">Excluir</button></a></td>
 				</tr>
-
-
 			</tbody>
 		</table>
 
-
+		<div class="card-body">
+			<a href="/vagas" class="btn btn-primary">Listar Vagas</a>
+			<a href="/cadastrarVaga" class="btn btn-success">Cadastrar Vagas</a>
+		</div>
 	</div>
 
 
