@@ -68,13 +68,7 @@
         <div class="col">
             <div class="card text-center">
                 <div class="card-header  card-title">
-                    <h3>Vagas</h3>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Módulo responsável pelas vagas ofertadas
-                        pela agência de RH.</p>
-                    <a href="/vagas" class="btn btn-primary">Listar Vagas</a>
-                    <a href="/cadastrarVaga" class="btn btn-success">Cadastrar Vagas</a>
+                    <h3>Seja Bem Vindo A Tech Jobs</h3>
                 </div>
             </div>
         </div>
@@ -109,6 +103,7 @@
                                 <option value="">Escolher...</option>
                                 <option value="todos">Todos</option>
                                 <option value="titlejobs">Vaga</option>
+                                <option value="namecandidates">Candidato</option>
                             </select>
                         </div>
 
@@ -134,8 +129,15 @@
 
                         <tbody>
                         <tr th:each="jobsOportunity : ${vagas}">
-                            <td><a th:href="${(#mvc.url('JC#detalhesVaga').arg(0, jobsOportunity.code)).build()}"><span th:text="${jobsOportunity.name}"></span></a> - em <i>vagas.</i></td>
+                            <td><a th:href="${(#mvc.url('JC#detalhesVaga').arg(0, jobsOportunity.code)).build()}">
+                                <span th:text="${jobsOportunity.name}"></span></a> - em <i>vagas.</i></td>
                         </tr>
+
+                        <tr th:each="candidate : ${candidates}">
+                            <td><span th:text="${candidate.nameCandidate}"></span> - <i>em candidatos.</i></td>
+                        </tr>
+
+
 
                         </tbody>
                     </table>
@@ -162,10 +164,13 @@
 
 
 <div class="footer-copyright fixed-bottom bg-primary text-center py-3">
-			<span class="text-light align-middle">| TECH JOBS - UC 12 |
-				Desenvolvido por Diego cardoso ©</span>
+			<span class="text-light align-middle"> TECH JOBS - By Diego cardoso ©
+				<a  href="https://github.com/DiegoCardosoDev">
+			<img src="https://img.icons8.com/material-sharp/24/000000/github.png"/></a>
+				<a  href="https://www.linkedin.com/in/diegocardosonogueira/">
+			<img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/24/000000/external-linkedin-in-logo-used-for-professional-networking-logo-filled-tal-revivo.png"/></a>
+			</span>
 </div>
-
 
 <!--JavaScript bootstrap-->
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>

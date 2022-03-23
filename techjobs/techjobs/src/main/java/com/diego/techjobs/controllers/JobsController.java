@@ -84,20 +84,20 @@ public class JobsController {
 	}
 
 	// ADICIONAR CANDIDATO
-	@RequestMapping(value = "vaga/{code}", method = RequestMethod.POST)
+	@RequestMapping(value = "/vaga/{code}", method = RequestMethod.POST)
 	public String detalhesVagaPost(@PathVariable("code") long code, @Valid Candidate candidate,
 			BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
-			return "redirect:vaga/{code}";
+			return "redirect:/vaga/{code}";
 		}
 
 		// rg duplicado
 		if (candidateRepository.findByRg(candidate.getRg()) != null) {
 			attributes.addFlashAttribute("mensagem_erro", "RG duplicado");
 			log.info("rg duplicado");
-			return "redirect:vaga/{code}";
+			return "redirect:/vaga/{code}";
 		}
 
 		JobsOportunity jobsOportunity = jobsRepository.findByCode(code);
@@ -105,7 +105,7 @@ public class JobsController {
 		candidateRepository.save(candidate);
 		attributes.addFlashAttribute("mensagem", "Candidato adionado com sucesso!");
 		log.info("adicionando candidato");
-		return "redirect:vaga/{code}";
+		return "redirect:/vaga/{code}";
 
 	}
 
@@ -118,7 +118,7 @@ public class JobsController {
 
 		candidateRepository.delete(candidate);
 
-		return "redirect:/" + code;
+		return "redirect:/vaga/" + code;
 
 	}
 
@@ -140,7 +140,7 @@ public class JobsController {
 
 		long codeLong = jobsOportunity.getCode();
 		String code = "" + codeLong;
-		return "redirect:/" + code;
+		return "redirect:/vaga/" + code;
 	}
 
 }
