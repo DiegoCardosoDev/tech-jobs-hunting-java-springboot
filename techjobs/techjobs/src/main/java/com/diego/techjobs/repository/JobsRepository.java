@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface JobsRepository extends CrudRepository<JobsOportunity, String> {
+
 	JobsOportunity findByCode(long code);
 	List<JobsOportunity> findByName(String name);
 

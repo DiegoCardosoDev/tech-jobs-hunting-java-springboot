@@ -19,7 +19,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, String> {
 	
 	Candidate findById(long id);
 
-	//busca de candidatos
+	// para a busca
 	@Query(value = "select u from Candidate u where u.nameCandidate like %?1%")
 	List<Candidate> findByNamesCandidates(String nameCandidate);
 	

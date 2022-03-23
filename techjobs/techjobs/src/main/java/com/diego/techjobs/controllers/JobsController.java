@@ -106,6 +106,7 @@ public class JobsController {
 		attributes.addFlashAttribute("mensagem", "Candidato adionado com sucesso!");
 		log.info("adicionando candidato");
 		return "redirect:vaga/{code}";
+
 	}
 
 	// DELETA CANDIDATO pelo RG
